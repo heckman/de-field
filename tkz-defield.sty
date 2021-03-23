@@ -1,13 +1,13 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{defield}[2021/03/22]
+\ProvidesPackage{tkz-defield}[2021/03/22]
 \RequirePackage{tkz-euclide}
 
 \newcommand{\defield}{
 \begingroup
-\begin{tikzpicture}
-[
-declare function={f(\x,\y)=(1-\x)*\y-\x^2;}
-]
+% \begin{tikzpicture}
+% [
+% declare function={#1}
+% ]
 \def\plottitle{\( y'=(1-x)y-x^2\)}
 
 \def\xknown{0}% initial condition
@@ -104,6 +104,6 @@ declare function={f(\x,\y)=(1-\x)*\y-\x^2;}
 
 
 
-\end{tikzpicture}
+% \end{tikzpicture}
 \endgroup
 }

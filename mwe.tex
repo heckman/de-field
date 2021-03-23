@@ -8,11 +8,18 @@
 % https://tex.stackexchange.com/a/471720 (CC BY-SA 3.0)
 
 \documentclass[border=5pt,tikz]{standalone}
-\usepackage{defield}
+\usepackage{tkz-defield}
+
 
 \begin{document}
 
-\defield%
+\begin{tikzpicture} [
+declare function={f(\x,\y)=(1-\x)*\y-\x^2;}
+]
+
+\defield
+
+\end{tikzpicture}
 
 \end{document}
 
