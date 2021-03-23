@@ -10,8 +10,7 @@
 \documentclass[border=5pt,tikz]{standalone}
 \usepackage{tkz-euclide}
 
-\begin{document}
-
+\newcommand{\defield}{
 \begingroup
 \begin{tikzpicture}
 [
@@ -115,6 +114,11 @@ declare function={f(\x,\y)=(1-\x)*\y-\x^2;}
 
 \end{tikzpicture}
 \endgroup
+}
+
+\begin{document}
+
+\defield%
 
 \end{document}
 
