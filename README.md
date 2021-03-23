@@ -1,2 +1,3 @@
-# de-field
+# defield
+
 Generates a slope field to a differential equation, along with a calculated solution given an initial value.
