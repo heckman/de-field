@@ -14,14 +14,15 @@
   no axes/.code={\pgfkeys{/defield/axes=false}},
   scale/.is if=showscale,   scale=true,
   no scale/.code={\pgfkeys{/defield/scale=false}},
+  function/.store in=\function,
+  function=f,
 }
 \ProcessPgfOptions{/OT}
 
 \NewDocumentCommand{\defield}{O{}}{
 \begingroup
 \pgfkeys{/defield/.cd,#1}%
-
-\def\function{g}
+% \pgfmathdeclarefunction{h}{2}{(1-#1)*#2-#1^2;}}
 % \begin{tikzpicture}
 % [
 % declare function={#1}
