@@ -1,14 +1,32 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{tkz-defield}[2021/03/22]
-\RequirePackage{tkz-euclide}
 
-\newcommand{\defield}{
+\RequirePackage{tkz-euclide}
+\RequirePackage{xparse}
+\RequirePackage{pgfopts}
+
+\newif\ifshowaxes
+\newif\ifshowscale
+\pgfkeys{/defield/.cd,% to set the path
+  title/.store in=\plottitle,
+  title=unset,
+  axes/.is if=showaxes,   axes=true,
+  no axes/.code={\pgfkeys{/defield/axes=false}},
+  scale/.is if=showscale,   scale=true,
+  no scale/.code={\pgfkeys{/defield/scale=false}},
+}
+\ProcessPgfOptions{/OT}
+
+\NewDocumentCommand{\defield}{O{}}{
 \begingroup
+\pgfkeys{/defield/.cd,#1}%
+
+\def\function{g}
 % \begin{tikzpicture}
 % [
 % declare function={#1}
 % ]
-\def\plottitle{\( y'=(1-x)y-x^2\)}
+% \def\plottitle{\( y'=(1-x)y-x^2\)}
 
 \def\xknown{0}% initial condition
 \def\yknown{1}
@@ -37,19 +55,23 @@
 % \tkzAxeXY
 % \tkzGrid
 
-
 % axes
+\ifshowaxes
 \draw[->] (\xmin-.5,0) node[above left] {\phantom{$x$}}
       --  (\xmax+.5,0) node[below right] {$x$};
 \draw[->] (0,\ymin-.5) node[below right] {\phantom{$y$}}
       --  (0,\ymax+.5) node[above left] {$y$};
 
 % tickmarks
+\ifshowscale
 \draw (\xmin,\xticksize)--(\xmin,-\xticksize) node[below]{$\xmin$};
 \draw (\xmax,\xticksize)--(\xmax,-\xticksize) node[below]{$\xmin$};
 \draw (\ymin,\xticksize)--(\xmin,-\xticksize) node[below]{$\xmin$};
 \draw (\yticksize,\ymin)--(-\yticksize,\ymin) node[left ]{$\ymin$};
 \draw (\yticksize,\ymax)--(-\yticksize,\ymax) node[left ]{$\ymax$};
+
+\fi% ticks
+\fi% axes
 
 % slope lines
 \pgfmathsetmacro{\xnext}{\xmin+(\xmax-\xmin)/\ydivisions}
@@ -57,7 +79,7 @@
 \foreach \x in {\xmin,\xnext,...,\xmax}
 \foreach \y in {\ymin,\ynext,...,\ymax}
 {
-  \pgfmathsetmacro{\fprime}{f(\x,\y)}
+  \pgfmathsetmacro{\fprime}{\function(\x,\y)}
   \draw[
       cyan,
       line width=0.5pt,
@@ -78,7 +100,7 @@
 {
 \pgfmathparse{\y<(\ymin-\ybleed) || \y>(\ymax+\ybleed) ?int(1):int(0)}
 \ifnum\pgfmathresult=0
-\pgfmathsetmacro{\y}{\y+f(\x,\y)*\xresolution}
+\pgfmathsetmacro{\y}{\y+\function(\x,\y)*\xresolution}
 \xdef\pointlist{\pointlist (\x,\y)}% append to point list
 \fi
 }
@@ -92,7 +114,7 @@
 {
 \pgfmathparse{\y<(\ymin-\ybleed) || \y>(\ymax+\ybleed) ?int(1):int(0)}
 \ifnum\pgfmathresult=0
-\pgfmathsetmacro{\y}{\y-f(\x,\y)*\xresolution}
+\pgfmathsetmacro{\y}{\y-\function(\x,\y)*\xresolution}
 \xdef\pointlist{(\x,\y) \pointlist }% prepend to point list
 \fi
 }
@@ -107,3 +129,4 @@
 % \end{tikzpicture}
 \endgroup
 }
+
