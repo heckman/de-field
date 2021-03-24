@@ -13,21 +13,55 @@
 
 \begin{document}
 
+
+
 \begin{tikzpicture} [
 declare function={f(\x,\y)=(1-\x)*\y-\x^2;},
 ]
-\defield[title={\( y'=(1-x)y-x^2\)},]
+\defield%
 \end{tikzpicture}
+
+\begin{tikzpicture} [
+declare function={f(\x,\y)=(1-\x)*\y-\x^2;},
+]
+\defield[
+  no axes,
+  xmin=-3, xmax=3,
+  ymin=-4, ymax=2,
+]
+\end{tikzpicture}
+
+
+\begin{tikzpicture} [
+declare function={f(\x,\y)=(1-\x)*\y-\x^2;},
+]
+\defield[
+  title={\( y'=(1-x)y-x^2\)},
+  x_0=0, y_0=1,
+  xmin=-3, xmax=3,
+  ymin=-4, ymax=2,
+]
+\end{tikzpicture}
+
 
 \begin{tikzpicture} [
 declare function={g(\x,\y)=(1-\x)*\y^2-\x^2;}
 ]
-
-\defield[title={\( y'=(1-x)y^2-x^2\)},function=g,no axes][
+\defield[
+  title={\( y'=(1-x)y^2-x^2\)},
+  function=g,
+  x_0=0, y_0=1,
+  xmin=-4, xmax=4,
+  ymin=-2, ymax=2,
+  x samples=32,
+  y samples=16,
+][
 % \tkzAxeXY
 \tkzGrid
 ]
 \end{tikzpicture}
+
+
 
 \end{document}
 
