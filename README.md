@@ -1,4 +1,4 @@
-# tikz-defield
+# defield
 
 D.E. Field, for use within a tikz environment.
 
@@ -6,8 +6,8 @@ Generates a slope field to a differential equation, along with a calculated solu
 
 ## WARNING
 
-This package in massive flux, don't count on anything here staying the same in future versions. (I might rename everything!)
+This package in wondrous flux: Everything in this version might be gone in the next revision. (I'm thinking of renaming everything!)
 
 ## WARNING
 
-I have no idea how to right a package
+I have no idea how to write a package.
