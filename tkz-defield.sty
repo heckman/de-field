@@ -39,7 +39,13 @@
   % the tickmarks extend this far in each direction
   x tick size/.store in=\xticksize,
   y tick size/.store in=\yticksize,
-% some aliases:
+  % style of slope marks
+  slope style/.code={\pgfkeys{/defield/slope/.style={#1}}},
+  slope/.style={cyan, line width=0.5pt},
+  % style of solution curve
+  curve style/.code={\pgfkeys{/defield/curve/.style={#1}}},
+  curve/.style={magenta, stealth-stealth, thick},
+  % some aliases:
   no axes/.code={\pgfkeys{/defield/axes=false}},
   no scale/.code={\pgfkeys{/defield/scale=false}},
 }
@@ -59,6 +65,9 @@
   y bleed=0.2,
   x tick size=0.2,
   y tick size=0.2,
+% more than one option per style is crash
+  % slope style={cyan, line width=0.5pt},%cyan, line width=0.5pt,
+  % curve style=magenta,%stealth-stealth},%thick},
 }}
 
 
@@ -73,6 +82,11 @@
 \begingroup
 \pgfkeys{/defield/.cd,default,#2}%
 
+% cant define more than one style
+%
+% \def\slopestyle{}
+% \def\curvestyle{magenta}%, stealth-stealth}
+
 \tkzInit[ymax=\ymax, ymin=\ymin, xmax=\xmax, xmin=\xmin]
 
 % axes
@@ -84,11 +98,13 @@
 % tickmarks
 \ifshowscale
 \draw (\xmin,\xticksize)--(\xmin,-\xticksize) node[below]{$\xmin$};
-\draw (\xmax,\xticksize)--(\xmax,-\xticksize) node[below]{$\xmin$};
+\draw (\xmax,\xticksize)--(\xmax,-\xticksize) node[below]{$\xmax$};
 \draw (\yticksize,\ymin)--(-\yticksize,\ymin) node[left ]{$\ymin$};
 \draw (\yticksize,\ymax)--(-\yticksize,\ymax) node[left ]{$\ymax$};
 \fi% tickmarks
 \fi% axes
+
+
 
 % slope lines
 \pgfmathsetmacro{\xnext}{\xmin+(\xmax-\xmin)/\xdivisions}
@@ -97,13 +113,13 @@
 \foreach \y in {\ymin,\ynext,...,\ymax}
 {
   \pgfmathsetmacro{\fprime}{\function(\x,\y)}
+  % \def\drawoption={}
   \draw[
-      cyan,
-      line width=0.5pt,
-      shift={({\x},{\y})}
-    ]
-      ($(0,0)!-\slopemarklength!(1,1*\fprime)$)
-    --($(0,0)! \slopemarklength!(1,1*\fprime)$);
+    /defield/slope,
+    shift={({\x},{\y})}
+  ]
+    ($(0,0)!-\slopemarklength!(1,1*\fprime)$)
+  --($(0,0)! \slopemarklength!(1,1*\fprime)$);
 }
 
 % using \ifx for both conditionals is crash
@@ -137,7 +153,7 @@
 \xdef\pointlist{(\x,\y) \pointlist }% prepend to point list
 \fi
 }
-\draw[stealth-stealth,magenta,thick] plot[smooth] coordinates {\pointlist};
+\draw[/defield/curve] plot[smooth] coordinates {\pointlist};
 
 \fi\fi% end of particular solution
 

@@ -15,23 +15,28 @@
 
 
 
-\begin{tikzpicture} [
-declare function={f(\x,\y)=(1-\x)*\y-\x^2;},
-]
-\defield%
-\end{tikzpicture}
+% empty
+%
+% \begin{tikzpicture} [
+% declare function={f(\x,\y)=(1-\x)*\y-\x^2;},
+% ]
+% \defield%
+% \end{tikzpicture}
 
-\begin{tikzpicture} [
-declare function={f(\x,\y)=(1-\x)*\y-\x^2;},
-]
-\defield[
-  no axes,
-  xmin=-3, xmax=3,
-  ymin=-4, ymax=2,
-]
-\end{tikzpicture}
+% % minimal
+% %
+% \begin{tikzpicture} [
+% declare function={f(\x,\y)=(1-\x)*\y-\x^2;},
+% ]
+% \defield[
+%   no axes,
+%   xmin=-3, xmax=3,
+%   ymin=-4, ymax=2,
+% ]
+% \end{tikzpicture}
 
-
+% typical use
+%
 \begin{tikzpicture} [
 declare function={f(\x,\y)=(1-\x)*\y-\x^2;},
 ]
@@ -44,6 +49,8 @@ declare function={f(\x,\y)=(1-\x)*\y-\x^2;},
 \end{tikzpicture}
 
 
+% styled
+
 \begin{tikzpicture} [
 declare function={g(\x,\y)=(1-\x)*\y^2-\x^2;}
 ]
@@ -51,10 +58,13 @@ declare function={g(\x,\y)=(1-\x)*\y^2-\x^2;}
   title={\( y'=(1-x)y^2-x^2\)},
   function=g,
   x_0=0, y_0=1,
-  xmin=-4, xmax=4,
-  ymin=-2, ymax=2,
-  x samples=32,
-  y samples=16,
+  xmin=-3, xmax=4,
+  ymin=-4, ymax=3,
+  x samples=48,% slope columns
+  y samples=24,% slope rows
+  slope style={orange, line width=0.75pt},
+  curve style={violet, latex-latex, line width=3pt},
+  no scale,
 ][
 % \tkzAxeXY
 \tkzGrid
