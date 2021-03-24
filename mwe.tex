@@ -23,17 +23,17 @@
 % \defield%
 % \end{tikzpicture}
 
-% % minimal
-% %
-% \begin{tikzpicture} [
-% declare function={f(\x,\y)=(1-\x)*\y-\x^2;},
-% ]
-% \defield[
-%   no axes,
-%   xmin=-3, xmax=3,
-%   ymin=-4, ymax=2,
-% ]
-% \end{tikzpicture}
+% minimal
+%
+\begin{tikzpicture} [
+declare function={f(\x,\y)=(1-\x)*\y-\x^2;},
+]
+\defield[
+  no axes,
+  xmin=-3, xmax=3,
+  ymin=-4, ymax=2,
+]
+\end{tikzpicture}
 
 % typical use
 %
@@ -64,11 +64,15 @@ declare function={g(\x,\y)=(1-\x)*\y^2-\x^2;}
   y samples=24,% slope rows
   slope style={orange, line width=0.75pt},
   curve style={violet, latex-latex, line width=3pt},
-  no scale,
-][
-% \tkzAxeXY
+  no axes,
+][%  inserted after plot
+%\tkzAxeXY
 \tkzGrid
+][% inserted before plot
+%
 ]
+
+
 \end{tikzpicture}
 
 

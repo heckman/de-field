@@ -78,7 +78,12 @@
 
 \ProcessPgfOptions{/defield}
 
-\NewDocumentCommand{\defield}{sO{}o}{
+
+% #1 star (not implemented)
+% #2 options
+% #3 pre-plot  tikz to insert
+% #4 post-plot tikz to insert
+\NewDocumentCommand{\defield}{sO{}oo}{
 \begingroup
 \pgfkeys{/defield/.cd,default,#2}%
 
@@ -88,6 +93,8 @@
 % \def\curvestyle{magenta}%, stealth-stealth}
 
 \tkzInit[ymax=\ymax, ymin=\ymin, xmax=\xmax, xmin=\xmin]
+
+#3;
 
 % axes
 \ifshowaxes
@@ -157,7 +164,7 @@
 
 \fi\fi% end of particular solution
 
-#3;
+#4;
 
 %title
 \ifx\plottitle\empty\else
