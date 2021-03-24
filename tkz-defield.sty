@@ -10,18 +10,24 @@
 \pgfkeys{/defield/.cd,% to set the path
   title/.store in=\plottitle,
   title=unset,
-  axes/.is if=showaxes,   axes=true,
+  axes/.is if=showaxes,
   no axes/.code={\pgfkeys{/defield/axes=false}},
-  scale/.is if=showscale,   scale=true,
+  scale/.is if=showscale,
   no scale/.code={\pgfkeys{/defield/scale=false}},
   function/.store in=\function,
-  function=f,
 }
+\pgfkeys{/defield/default/.style = {
+  title = unset,
+  axes=true,
+  scale=true,
+  function=f,
+}}
+
 \ProcessPgfOptions{/OT}
 
-\NewDocumentCommand{\defield}{O{}}{
+\NewDocumentCommand{\defield}{sO{}o}{
 \begingroup
-\pgfkeys{/defield/.cd,#1}%
+\pgfkeys{/defield/.cd,default,#2}%
 % \pgfmathdeclarefunction{h}{2}{(1-#1)*#2-#1^2;}}
 % \begin{tikzpicture}
 % [
@@ -35,7 +41,7 @@
 \def\xmax{3} \def\xmin{-3}% domain
 \def\ymax{3} \def\ymin{-3}
 
-\def\xresolution{0.01}% solution curve resolution
+\def\xresolution{0.05}% solution curve resolution
 \def\xdivisions{18}% number of slope markers per row - 1
 \def\ydivisions{18}% number of slope markers per column - 1
 
@@ -53,8 +59,6 @@
 \tkzInit[ymax=\ymax, ymin=\ymin, xmax=\xmax, xmin=\xmin]
 
 % some options could be enabled here, but hard to customize
-% \tkzAxeXY
-% \tkzGrid
 
 % axes
 \ifshowaxes
@@ -121,6 +125,7 @@
 }
 \draw[stealth-stealth,magenta,thick] plot[smooth] coordinates {\pointlist};
 
+#3;
 
 %title
 \draw (current bounding box.north) node[above]{\plottitle};
